@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      PGDATA: /data/postgres
+      POSTGRES_USER: messenger
+      POSTGRES_PASSWORD: messenger
+      POSTGRES_DB: messenger
+    ports:
+      - 5432:5432
+    volumes:
+       - postgres:/data/postgres
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  api:
+    build: .
+    init: true
+    environment:
+      TYPEORM_CONNECTION: postgres
+      TYPEORM_HOST: postgres
+      TYPEORM_USERNAME: messenger
+      TYPEORM_PASSWORD: messenger
+      TYPEORM_DATABASE: messenger
+      TYPEORM_PORT: 5432
+      TYPEORM_SYNCHRONIZE: "true"
+      TYPEORM_LOGGING: "true"
+      TYPEORM_ENTITIES: src/entities/**/*.ts
+    ports:
+      - 3000:3000
+    networks:
+      - postgres
+
+  # https://github.com/khezen/compose-postgres/blob/master/docker-compose.yml
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: messenger@localhost
+      PGADMIN_DEFAULT_PASSWORD: messenger
+    ports:
+      - 5433:80
+    volumes:
+       - pgadmin:/root/.pgadmin
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  pgadmin:
+  postgres:
