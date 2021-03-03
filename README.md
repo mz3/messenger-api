@@ -159,6 +159,14 @@ After logging in, find "Browser" > "Servers" > "Add New Server". Enter the setti
 - Connection > Password: `messenger`
 - Connection > Save password?: `true`
 
+Monitor database connections and queries.
+
+![Docker logs](screenshots/pgadmin.png)
+
+Manage database tables and run queries.
+
+![Docker logs](screenshots/pgadmin2.png)
+
 Connect to the database CLI.
 
 ```bash
