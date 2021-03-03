@@ -7,8 +7,6 @@ A messenger API that allows users to send and receive chat messages
 - Clients must use server timezone
 - No chat privacy
 
-## Running with Docker
-
 ### Dependencies
 
 - Docker
@@ -17,9 +15,16 @@ A messenger API that allows users to send and receive chat messages
 
 ### Getting started
 
-Start the containers with `docker-compose`.
+Clone the repository.
 
 ```bash
+git clone git@github.com:mz3/messenger-api.git
+```
+
+Stop any PostgreSQL server running on port 5432. Start the containers with `docker-compose`.
+
+```bash
+cd messenger-api
 docker-compose up
 ```
 
@@ -58,7 +63,7 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
-Run the tests with `docker`
+Run the tests with `docker`.
 
 ```bash
 docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
@@ -78,15 +83,20 @@ VS Code is recommended for Typescript Intellisense.
 - Yarn
 - Web browser
 
-## HTTP endpoints
+## Endpoints
 
-- [API (production mode)](http://localhost:3000)
-- [API (development mode)](http://localhost:3001)
-- [pgAdmin](http://localhost:3002) (Username = `messenger@localhost`, Password = `messenger`)
+- HTTP API (production mode): [http://localhost:3000](http://localhost:3000)
+- HTTP API (development mode): [http://localhost:3001](http://localhost:3001)
+- Database web UI (pgAdmin): [http://localhost:3002](http://localhost:3002)
 
-After logging into pgAdmin, add the messenger database connection parameters:
+To login to the database web UI, enter the credentials.
 
-- Connection type: `postgres`
+- Username: `messenger@localhost`
+- Password: `messenger`
+
+After logging in, add the messenger database connection parameters.
+
+- Connection type: PostgreSQL
 - Database name: `messenger`
 - Username: `messenger`
 - Password: `messenger`
@@ -113,5 +123,5 @@ Debug Docker image:
 
 ```bash
 yarn build:docker
-docker run -it messenger-api_messenger-api sh # different if you cloned to a dir other than "messenger-api"
+docker run -it messenger-api_messenger-api sh
 ```
