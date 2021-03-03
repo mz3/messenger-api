@@ -1,17 +1,11 @@
-// HTTP configuration
-const PORT = process.env.PORT || 3000;
-
 // Import API so tests re-run when code changes
 import "./api";
 
 // Use built-in node assert
 import assert from "assert";
 
-// Socket.io
-import { io } from "socket.io-client";
-
-// Connect to WebSocket API
-const socket = io(`ws://localhost:${PORT}`);
+// Socket client
+import { socket, getMessages } from "./client";
 
 // Start tests on connection event
 socket.on("connect", () => {
@@ -24,7 +18,7 @@ socket.on("connect", () => {
   socket.emit("subscribe", message.chat);
 
   // Create a socket handler to test received messages
-  socket.on("message", (response) => {
+  socket.on("message", async (response) => {
     console.log("Running assertions");
 
     try {
@@ -43,12 +37,29 @@ socket.on("connect", () => {
       // Check that the message was sent
       assert.ok(sent);
 
+      // Retrieve messages from API
+      const actual = await getMessages({ chat, sort: -1 }).then(
+        (messages) => messages[0]
+      );
+      const expected = message;
+
+      // Verify that the most recent message in the chat is the one we just sent
+      assert.strictEqual(actual.body, expected.body);
+      assert.strictEqual(actual.chat, expected.chat);
+      assert.strictEqual(actual.user, expected.user);
+
+      // Verify the message was sent
+      assert.ok(typeof actual.sent === "string");
+      assert.ok(actual.sent.length > 0);
+
       // Success
       console.log("Tests are passing");
+      process.exit(0);
     } catch (err) {
       // Failure
       console.error("Tests are failing");
       console.error(err);
+      process.exit(1);
     }
   });
 

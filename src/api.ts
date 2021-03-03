@@ -101,7 +101,7 @@ export const disconnectUser = ({ socket: { id } }: User): void => {
 
 export const getMessages = async (
   connection: Connection,
-  { user = null, chat = null, sort = -1 }: GetMessagesOpts
+  { chat = null, sort = -1, user = null }: GetMessagesOpts
 ) => {
   // Prepare database query based on request parameters and app configuration
   // select only messages sent in the last 30 days

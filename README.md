@@ -2,11 +2,10 @@
 
 A messenger API that allows users to send and receive chat messages
 
-## Development features
+## Limitations
 
-* Docker image
-* Integration tests
-* Typescript
+- Clients must use server timezone
+- No chat privacy
 
 ## Running with Docker
 
@@ -18,10 +17,15 @@ A messenger API that allows users to send and receive chat messages
 
 ### Getting started
 
-```bash
-# Start the API
-docker-compose up
+Start the containers with `docker-compose`.
 
+```bash
+docker-compose up
+```
+
+Send some test commands with `curl`.
+
+```bash
 # Send a message to chat 1 from user 2
 curl -H "Content-Type: application/json" \
   -X POST \
@@ -54,62 +58,54 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
-## Local development
+Run the tests with `docker`
+
+```bash
+docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
+```
+
+## Development
+
+VS Code is recommended for Typescript Intellisense.
+
+- Docker image
+- Integration tests
+- Typescript
 
 ### Additional dependencies
 
-* Node.js/NPM
-* Yarn
-* Web browser
+- Node.js
+- Yarn
+- Web browser
 
-### Database admin
+## HTTP endpoints
 
-pgAdmin runs on port 3002 (http://localhost:3002). Log in using the credentials:
+- [API (production mode)](http://localhost:3000)
+- [API (development mode)](http://localhost:3001)
+- [pgAdmin](http://localhost:3002) (Username = `messenger@localhost`, Password = `messenger`)
 
-* Username: `messenger@localhost`
-* Password: `messenger`
+After logging into pgAdmin, add the messenger database connection parameters:
 
-Add the messenger database connection:
-
-* Connection type: `postgres`
-* Database name: `messenger`
-* Username: `messenger`
-* Password: `messenger`
-
+- Connection type: `postgres`
+- Database name: `messenger`
+- Username: `messenger`
+- Password: `messenger`
 
 ### Yarn scripts
 
-```bash
-# Build Docker container
-yarn build
-
-# Start Docker containers
-# API:     http://localhost:3000
-# PGAdmin: http://localhost:5433
-yarn start:docker
-
-# Start API with Node.js
-# API:     http://localhost:3001
-yarn start:node
-
-# Start API with Node.js in watch mode
-# API:     http://localhost:3001
-yarn start:node-dev
-
-# Run tests in Docker container
-yarn test:docker
-
-# Run tests with Node.js
-yarn test:node
-
-# Run tests in Docker container
-yarn test
+```json
+{
+  "start": "yarn docker:build && yarn docker:start",
+  "test": "yarn docker:test",
+  "docker:build": "docker-compose build",
+  "docker:start": "docker-compose up --build -d",
+  "docker:stop": "docker-compose down",
+  "docker:test": "docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts",
+  "node:start": "cross-env PORT=3001 ts-node src/index.ts",
+  "node:watch": "cross-env PORT=3001 ts-node-dev src/index.ts",
+  "node:test": "cross-env HTTP_ENDPOINT=http://localhost:3001 ts-node-dev src/test.ts"
+}
 ```
-
-## Limitations
-
-- Clients must use server timezone
-- No chat privacy
 
 ## Notes
 

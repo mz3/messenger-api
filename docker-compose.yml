@@ -20,6 +20,7 @@ services:
     build: .
     init: true
     environment:
+      HTTP_ENDPOINT: http://localhost:3000
       TYPEORM_CONNECTION: postgres
       TYPEORM_HOST: postgres
       TYPEORM_USERNAME: messenger
@@ -41,7 +42,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: messenger@localhost
       PGADMIN_DEFAULT_PASSWORD: messenger
     ports:
-      - 5433:80
+      - 3002:80
     volumes:
        - pgadmin:/root/.pgadmin
     networks:
