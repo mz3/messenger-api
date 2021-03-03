@@ -11,7 +11,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-       - postgres:/data/postgres
+      - postgres:/data/postgres
     networks:
       - postgres
     restart: unless-stopped
@@ -44,7 +44,7 @@ services:
     ports:
       - 3002:80
     volumes:
-       - pgadmin:/root/.pgadmin
+      - pgadmin:/root/.pgadmin
     networks:
       - postgres
     restart: unless-stopped
