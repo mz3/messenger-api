@@ -122,17 +122,13 @@ export const getMessages = async (
   date.setDate(date.getDate() - DAYS_LIMIT);
 
   // TypeORM `take` maps to SQL LIMIT
-  const opts = { take: MESSAGE_LIMIT, order: {}, where: {} };
+  const opts = { take: MESSAGE_LIMIT, order: { sent: sort}, where: {} };
   if (user) Object.assign(opts, { where: { user } });
   if (chat) Object.assign(opts, { where: { chat } });
 
   // retrieve and sort messages, most recent first
   console.log(`Searching messages`, opts);
-  const messages = await connection.manager.find(Message, {
-    order: {
-      sent: sort,
-    },
-  });
+  const messages = await connection.manager.find(Message, opts);
   console.debug(`Found ${messages.length} messages`, opts);
 
   return messages;
