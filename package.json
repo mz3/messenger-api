@@ -12,7 +12,7 @@
     "docker:test": "docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts",
     "node:start": "cross-env PORT=3001 ts-node src/index.ts",
     "node:watch": "cross-env PORT=3001 ts-node-dev src/index.ts",
-    "node:test": "cross-env HTTP_ENDPOINT=http://localhost:3001 ts-node-dev src/test.ts",
+    "node:test": "cross-env HTTP_ENDPOINT=http://localhost:3001 ts-node-dev --respawn src/test.ts",
     "psql": "docker exec -it messenger-api_postgres_1 psql -U messenger -d messenger"
   },
   "devDependencies": {
