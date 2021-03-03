@@ -114,7 +114,7 @@ export const getMessages = async (
   if (chat) Object.assign(opts, { where: { chat } });
 
   // retrieve and sort messages, most recent first
-  console.log(`Finding messages`, opts);
+  console.log(`Searching messages`, opts);
   const messages = await connection.manager.find(Message, {
     order: {
       sent: sort,
@@ -138,8 +138,7 @@ export const sendMessage = async (
     });
 
     // Print message
-    console.log(`User ${message.user} says: "${message.body}" (Chat room ${message.chat})
-    `);
+    console.log(message);
 
     // Find or create chat
     const chat = findOrCreateChat(message.chat);
