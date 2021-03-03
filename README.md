@@ -152,8 +152,7 @@ yarn psql
 ## Notes
 
 - See `"scripts"` property in `package.json` for full Yarn script reference.
-
-To get a shell inside the Docker container, run:
+- To get a shell inside the Docker container, run:
 
 ```bash
 docker exec -it messenger-api_messenger-api sh
