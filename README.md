@@ -89,11 +89,10 @@ curl -H "Content-Type: application/json" \
 
 ![CUrl message](screenshots/curl-message.png)
 
-## Developing
+## Local development environment
 
-For local development, the optional dependencies are required.
-
-### Installation
+- For local development, installing the optional dependencies is required.
+- VS Code is recomended for Typescript intellisense, automated formatting, and the Node.js debugger.
 
 ```bash
 # Install NPM modules
@@ -121,13 +120,13 @@ curl -H "Content-Type: application/json" \
 
 Make code changes, save the Typescript file, then watch as the API restarts, database tables rebuild, and test suite runs.
 
-### Endpoints
+### Development URLs
 
 - HTTP API (production mode): [http://localhost:3000](http://localhost:3000)
 - HTTP API (development mode): [http://localhost:3001](http://localhost:3001)
 - Database UI (pgAdmin): [http://localhost:3002](http://localhost:3002)
 
-### Debugger
+### Debugging code
 
 Click to the left of line numbers to set breakpoints.
 
@@ -137,7 +136,7 @@ With a Typescript file open, Go to the Debugger tab and click the Run button.
 
 ![Debugger scripts](screenshots/debug-scripts.png)
 
-### Database
+### Managing the database
 
 To login to the database UI, enter the credentials.
 
@@ -165,7 +164,7 @@ A query logger can be enabled in `ormconfig.json`.
 }
 ```
 
-## Limitations
+## Bugs and limitations
 
 - Clients must use server timezone
 - No authentication or sessions
