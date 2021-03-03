@@ -17,7 +17,7 @@ A Chat API that allows users to send and receive text messages
 ## Dependencies
 
 - Docker
-- Docker-compose
+- Docker Compose
 - Git
 - Web browser
 - CUrl (optional)
@@ -32,7 +32,7 @@ Clone the repository.
 git clone git@github.com:mz3/messenger-api.git
 ```
 
-Stop any PostgreSQL or other processes running on ports 3000, 3001, 3002, and 5432. Start the containers with `docker-compose`.
+Stop PostgreSQL Server, Docker containers or other processes running on ports 3000, 3001, 3002, and 5432. Start the Chat API Docker containers with Docker Compose.
 
 ```bash
 cd messenger-api
@@ -45,9 +45,16 @@ Check the logs.
 docker-compose logs
 ```
 
-![Docker logs](screenshots/logs.png)
+Tail the logs (`CTRL-C` exits).
 
-Run the test suite with Docker.
+```bash
+docker-compose logs -f
+yarn logs
+```
+
+![Logs](screenshots/logs.png)
+
+Run the tests.
 
 ```bash
 # Using Docker
@@ -57,7 +64,7 @@ docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
 yarn test
 ```
 
-![Docker test](screenshots/tests.png)
+![Test](screenshots/test.png)
 
 Send some requests with CUrl.
 
@@ -94,7 +101,9 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
-![CUrl response](screenshots/curl.png)
+The Chat API returns the message as JSON.
+
+![CUrl](screenshots/curl.png)
 
 ## Local development environment
 
