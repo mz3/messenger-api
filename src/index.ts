@@ -33,6 +33,12 @@ createConnection().then((connection) => {
   const server = createServer(app);
   const io = new Server(server);
 
+  // Create a status/health endpoint
+  app.get("/status", (req, res) => {
+    const status = { code: 200, status: "healthy" }
+    // We could check statuses of other APIs and services here and customize the status result
+    res.status(status.code).json(status);
+  });
   // Socket.io handlers
   io.on("connection", (socket: Socket) => {
     // Create user when a socket connects
@@ -49,7 +55,7 @@ createConnection().then((connection) => {
         const message = api.validateMessage(obj);
         api.sendMessage(connection, message);
       } catch (err) {
-        console.error(`Failed handling message`, err)
+        console.error(`Failed handling message`, err);
       }
     });
 

@@ -54,15 +54,18 @@ socket.on("connect", () => {
 
       // Success
       console.log("Tests are passing");
-      process.exit(0);
     } catch (err) {
       // Failure
-      console.error("Tests are failing");
       console.error(err);
-      process.exit(1);
     }
   });
 
   // Send message
   socket.emit("message", message);
+});
+
+// Close socket connection when process exits
+process.on("SIGINT", () => {
+  socket.close();
+  process.exit();
 });

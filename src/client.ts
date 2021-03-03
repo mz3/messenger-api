@@ -13,29 +13,41 @@ export const socket = io(HTTP_ENDPOINT.replace("http://", "ws://"));
 
 // Types
 export interface Message {
-  body: number,
-  chat: number,
-  user: number,
-  id?: number,
-  sent?: string,
+  body: number;
+  chat: number;
+  user: number;
+  id?: number;
+  sent?: string;
 }
 
 // Helper to format API URLs
 export const getUrl = (path: string) => `${HTTP_ENDPOINT}${path}`;
 
-// Send a message (Websocket)
-export const sendMessage = (message: Message) => socket.emit("message", message)
+// Get service status
+export const getStatus = () =>
+  fetch(getUrl("/status"), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "GET",
+  });
 
-// Send a message (HTTP)
-export const sendMessageHttp = (message: Message) => fetch(getUrl("/send-message"), {
-  body: JSON.stringify(message),
-  headers: {
-    "Content-Type": "application/json",
-  },
-  method: "POST",
-})
+// Send a WebSocket message
+export const sendMessageSocket = (message: Message) =>
+  socket.emit("message", message);
 
-// Get messages (async/await)
+// Send an HTTP message
+export const sendMessageHttp = (message: Message) =>
+  fetch(getUrl("/send-message"), {
+    body: JSON.stringify(message),
+    method: "POST",
+  });
+
+// Send a message (default=Socket)
+// export const sendMessage = sendMessageHttp;
+export const sendMessage = sendMessageSocket;
+
+// Get messages
 export const getMessages = async ({
   chat = null,
   sort = -1,
@@ -49,7 +61,5 @@ export const getMessages = async ({
     },
     method: "POST",
   });
-  const messages = await response.json();
-  console.log(`Retrieved ${messages.length} messages`);
-  return messages;
+  return response.json();
 };

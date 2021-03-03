@@ -114,13 +114,13 @@ export const getMessages = async (
   if (chat) Object.assign(opts, { where: { chat } });
 
   // retrieve and sort messages, most recent first
-  console.debug(`getting messages from database`, opts);
+  console.log(`Finding messages`, opts);
   const messages = await connection.manager.find(Message, {
     order: {
       sent: sort,
     },
   });
-  console.debug(`${messages.length} retrieved for query`, opts);
+  console.debug(`Found ${messages.length} messages`, opts);
 
   return messages;
 };
