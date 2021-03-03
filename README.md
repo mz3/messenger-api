@@ -44,7 +44,7 @@ yarn test
 
 ![Docker tests](screenshots/docker-test.png)
 
-Send some test commands with `curl`.
+Send some requests with `curl`.
 
 ```bash
 # Send a message to chat 1 from user 2
