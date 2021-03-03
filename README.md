@@ -126,7 +126,7 @@ Make code changes, save the Typescript file, then watch as the API restarts, dat
 - HTTP API (development mode): [http://localhost:3001](http://localhost:3001)
 - Database UI (pgAdmin): [http://localhost:3002](http://localhost:3002)
 
-### Debugging code
+### Debugging Typescript code
 
 Click to the left of line numbers to set breakpoints.
 
