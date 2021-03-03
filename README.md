@@ -32,19 +32,27 @@ cd messenger-api
 docker-compose up -d
 ```
 
-Run the test suite.
+Check the logs.
+
+```bash
+docker-compose logs
+```
+
+![Docker logs](screenshots/docker-logs.png)
+
+Run the test suite with Docker.
 
 ```bash
 # Using Docker
 docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
 
-# Using Yarn script alias (requires Node.js + Yarn)
+# Using Yarn alias (requires Node.js + Yarn)
 yarn test
 ```
 
-![Docker tests](screenshots/docker-test.png)
+![Docker test](screenshots/docker-test.png)
 
-Send some requests with `curl`.
+Send some requests with CUrl.
 
 ```bash
 # Send a message to chat 1 from user 2
@@ -85,13 +93,6 @@ curl -H "Content-Type: application/json" \
 
 For local development, the optional dependencies are required.
 
-### Environment
-
-- Docker
-- Testing
-- Typescript
-- VS Code
-
 ### Installation
 
 ```bash
@@ -118,7 +119,7 @@ curl -H "Content-Type: application/json" \
   http://localhost:3001/send-message
 ```
 
-Make code changes, and watch as the API restarts, database tables rebuild, and test suite runs.
+Make code changes, save the Typescript file, then watch as the API restarts, database tables rebuild, and test suite runs.
 
 ### Endpoints
 
