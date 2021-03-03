@@ -9,8 +9,6 @@ import { socket, getMessages, Message } from "./client";
 
 // Start tests when socket connects
 socket.on("connect", () => {
-  console.log("Starting test");
-
   // Test variables
   const body = "Hello from client!";
   const chat = 1;
@@ -21,7 +19,7 @@ socket.on("connect", () => {
 
   // Create a socket handler to test received messages
   socket.on("message", async (message: Message) => {
-    console.log("Running assertions");
+    console.log("Running tests");
     socket.open();
 
     try {
@@ -50,7 +48,7 @@ socket.on("connect", () => {
       assert.ok(messages[0].sent.length > 0);
 
       // Success
-      console.log("Tests are passing");
+      console.log("All tests passing");
       socket.close();
     } catch (err) {
       // Failure

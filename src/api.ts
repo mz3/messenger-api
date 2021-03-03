@@ -127,7 +127,7 @@ export const getMessages = async (
   if (chat) Object.assign(opts, { where: { chat } });
 
   // retrieve and sort messages, most recent first
-  console.log(`Searching messages`, opts);
+  console.log(`Getting messages from database`, opts);
   const messages = await connection.manager.find(Message, opts);
   console.debug(`Found ${messages.length} messages`, opts);
 
@@ -146,14 +146,12 @@ export const sendMessage = async (
       user: parseInt(opts.user),
     });
 
-    // Print message
-    console.log(message);
+    // Save message to database
+    console.log(`Saving message to database`, message);
+    await connection.manager.save(Message, message);
 
     // Find or create chat
     const chat = findOrCreateChat(message.chat);
-
-    // Save message to database
-    await connection.manager.save(Message, message);
 
     // Send message to users in chat
     chat.users.forEach((user) => user.socket.emit("message", message));
