@@ -19,6 +19,7 @@ A messenger API that allows users to send and receive chat messages
 
 - Docker
 - Docker-compose
+- Git
 - Web browser
 - CUrl (optional)
 - Node.js (optional)
