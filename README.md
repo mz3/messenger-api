@@ -25,7 +25,7 @@ Clone the repository.
 git clone git@github.com:mz3/messenger-api.git
 ```
 
-Stop any PostgreSQL server running on port 5432. Start the containers with `docker-compose`.
+Stop any PostgreSQL or other processes running on ports 3000, 3001, 3002, and 5432. Start the containers with `docker-compose`.
 
 ```bash
 cd messenger-api
@@ -38,9 +38,11 @@ Run the test suite.
 # Using Docker
 docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
 
-# Using Yarn script (requires Node.js + Yarn)
-docker test
+# Using Yarn script alias (requires Node.js + Yarn)
+yarn test
 ```
+
+![Docker tests](screenshots/docker-test.png)
 
 Send some test commands with `curl`.
 
@@ -77,9 +79,11 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
+![CUrl message](screenshots/curl-message.png)
+
 ## Developing
 
-For local development, install the optional dependencies.
+For local development, the optional dependencies are required.
 
 ### Environment
 
@@ -100,10 +104,10 @@ yarn start
 # Start the Node.js API script. The script will remain open as the API listens on http://localhost:3001
 yarn node:watch
 
-# In a second terminal window, run the test suite
+# In a second terminal window, run the test suite. It will re-run tests on code changes and print results.
 yarn node:test
 
-# In a third terminal window, send a test message. The development API is on port 3001
+# In a third terminal window, send a test message
 curl -H "Content-Type: application/json" \
   -X POST \
   -d '{
@@ -114,7 +118,7 @@ curl -H "Content-Type: application/json" \
   http://localhost:3001/send-message
 ```
 
-Send messages, make code changes, and watch as the API restarts, database tables rebuild, and test suite runs.
+Make code changes, and watch as the API restarts, database tables rebuild, and test suite runs.
 
 ### Endpoints
 
@@ -126,11 +130,11 @@ Send messages, make code changes, and watch as the API restarts, database tables
 
 Click to the left of line numbers to set breakpoints.
 
-![Debugger breakpoints](screenshots/debugger-breakpoints.png)
+![Debugger breakpoints](screenshots/debug-breakpoints.png)
 
 With a Typescript file open, Go to the Debugger tab and click the Run button.
 
-![Debugger scripts](screenshots/debugger-scripts.png)
+![Debugger scripts](screenshots/debug-scripts.png)
 
 ### Database
 

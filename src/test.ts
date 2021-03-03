@@ -59,7 +59,8 @@ socket.on("connect", () => {
   // Send message
   socket.emit("message", { body, chat, user });
 
-  // Keep test process running
+  // Keep test process running under watch mode
+  // https://www.npmjs.com/package/ts-node-dev
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Left_shift
-  setInterval(() => {}, 1 << 30);
+  if (process.env.TS_NODE_DEV) setInterval(() => {}, 1 << 30);
 });
