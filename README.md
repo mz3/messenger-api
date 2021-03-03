@@ -149,6 +149,14 @@ To connect to psql, run:
 yarn psql
 ```
 
+A query logger can be enabled in `ormconfig.json`.
+
+```json
+{
+  "logging": true
+}
+```
+
 ## Notes
 
 - See `"scripts"` property in `package.json` for full Yarn script reference.
