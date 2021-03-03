@@ -10,7 +10,6 @@ A Chat API that allows users to send and receive chat messages
 
 ## Limitations
 
-- Clients must use server timezone
 - No authentication, authorization, or registration
 - Messages can be spoofed
 - Messages are not private
@@ -126,7 +125,7 @@ curl -H "Content-Type: application/json" \
   http://localhost:3001/send-message
 ```
 
-Make code changes, save the Typescript file, then watch as the API restarts, database tables rebuild, and test suite runs.
+Make changes, save the Typescript file, and the API restarts, database tables rebuild, and test suite runs.
 
 ### Development URLs
 
@@ -186,7 +185,7 @@ select * from message where message.user = 1;
 \q
 ```
 
-A query logger can be enabled in `ormconfig.json`.
+Enable the SQL query logger can be enabled in `ormconfig.json`.
 
 ```json
 {
