@@ -5,14 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Current TS File",
+      "name": "Current Typescript file",
       "type": "node",
       "request": "launch",
       "args": ["${relativeFile}"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
-      "protocol": "inspector"
-  }
+      "protocol": "inspector",
+      "env": { "PORT": "3001" }
+    }
   ]
 }

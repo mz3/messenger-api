@@ -46,7 +46,7 @@ Check the logs.
 docker-compose logs
 ```
 
-![Docker logs](screenshots/docker-logs.png)
+![Docker logs](screenshots/logs.png)
 
 Run the test suite with Docker.
 
@@ -58,7 +58,7 @@ docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
 yarn test
 ```
 
-![Docker test](screenshots/docker-test.png)
+![Docker test](screenshots/tests.png)
 
 Send some requests with CUrl.
 
@@ -95,7 +95,7 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
-![CUrl message](screenshots/curl-message.png)
+![CUrl message](screenshots/curl.png)
 
 ## Local development environment
 
@@ -138,11 +138,11 @@ Make code changes, save the Typescript file, then watch as the API restarts, dat
 
 Click to the left of line numbers to set breakpoints.
 
-![Debugger breakpoints](screenshots/debug-breakpoints.png)
+![Debugger](screenshots/debugger.png)
 
-With a Typescript file open, Go to the Debugger tab and click the Run button.
+Press F5 (Windows) or go to the Debugger tab and click the Run button.
 
-![Debugger scripts](screenshots/debug-scripts.png)
+![Debugger](screenshots/debugger.png)
 
 ### Managing the database
 
