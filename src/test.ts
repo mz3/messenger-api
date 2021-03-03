@@ -7,56 +7,59 @@ import assert from "assert";
 // Socket client
 import { socket, getMessages, Message } from "./client";
 
+// Test values
+const body = "Hello from client!";
+const chat = 1;
+const user = 1;
+
+// Create a handler to test received messages
+socket.on("message", async (message: Message) => {
+  try {
+    // Expect `chat` in the response to be the same in the test message
+    assert.strictEqual(message.chat, chat);
+
+    // Expect `user` chat be our user id
+    assert.strictEqual(message.user, user);
+
+    // Expect `body` to be the content of our test message
+    assert.strictEqual(message.body, body);
+
+    // Get messages
+    const messages = await getMessages({ chat, sort: -1 });
+
+    // Assert the API returned 100 or fewer messages. This test isn't currently effective
+    // unless there have been more than 100 test messages sent through the API. Given more
+    // time, 101 messages should be inserted into the table before tests run, either in the
+    // test setup or a seed script
+    assert.ok(messages.length <= 100);
+
+    // Assert the most recent message contains the test variables
+    assert.strictEqual(messages[0].body, body);
+    assert.strictEqual(messages[0].chat, chat);
+    assert.strictEqual(messages[0].user, user);
+
+    // Assert it has a timestamp
+    assert.ok(messages[0].sent);
+
+    // Success
+    console.log("All tests passing");
+    socket.close();
+  } catch (err) {
+    // Failure
+    console.error(err);
+    socket.close();
+  }
+});
+
 // Start tests when socket connects
+console.log("Connecting to socket");
+socket.open();
+
 socket.on("connect", () => {
-  // Test values
-  const body = "Hello from client!";
-  const chat = 1;
-  const user = 1;
+  console.log("Running tests");
 
   // Join the chat
   socket.emit("subscribe", chat);
-
-  // Create a socket handler to test received messages
-  socket.on("message", async (message: Message) => {
-    console.log("Running tests");
-    socket.open();
-
-    try {
-      // Expect `chat` in the response to be the same in the test message
-      assert.strictEqual(message.chat, chat);
-
-      // Expect `user` chat be our user id
-      assert.strictEqual(message.user, user);
-
-      // Expect `body` to be the content of our test message
-      assert.strictEqual(message.body, body);
-
-      // Get messages
-      const messages = await getMessages({ chat, sort: -1 });
-
-      // Assert the API returned 100 or fewer messages. This test isn't currently effective
-      // unless there have been more than 100 test messages sent through the API. Given more
-      // time, 101 messages should be inserted into the table before tests run, either in the
-      // test setup or a seed script
-      assert.ok(messages.length <= 100);
-
-      // Assert the most recent message contains the test variables
-      assert.strictEqual(messages[0].body, body);
-      assert.strictEqual(messages[0].chat, chat);
-      assert.strictEqual(messages[0].user, user);
-
-      // Assert it has a timestamp
-      assert.ok(messages[0].sent);
-
-      // Success
-      console.log("All tests passing");
-      socket.close();
-    } catch (err) {
-      // Failure
-      console.error(err);
-    }
-  });
 
   // Send message
   socket.emit("message", { body, chat, user });

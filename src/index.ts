@@ -23,9 +23,13 @@ import * as api from "./api";
 
 // Application logic
 createConnection().then((connection) => {
-  // create http and websocket server
+  // Create express app
   const app = express();
+
+  // Create HTTP server
   const server = createServer(app);
+
+  // Create Socket.io server
   const io = new Server(server);
 
   // Create a status/health endpoint
@@ -34,9 +38,12 @@ createConnection().then((connection) => {
     // We could check statuses of other APIs and services here and customize the status result
     res.status(status.code).json(status);
   });
-  // Socket.io handlers
+
+  // Define WebSocket API
   io.on("connection", (socket: Socket) => {
-    // Create user when a socket connects
+    console.log(`Socket ${socket.id} connected`);
+
+    // Save user
     try {
       api.createUser({ socket });
       console.log(api.countUsers(), "users connected");
@@ -44,12 +51,12 @@ createConnection().then((connection) => {
       console.log(`Could not create user`, err);
     }
 
-    // Handle incoming messages
+    // Handle incoming "message" events
     socket.on("message", async (message: any) => {
       try {
         await api.sendMessage(connection, message);
       } catch (err) {
-        console.error(`Failed handling message`, err);
+        console.error(`Could not send message`, err);
       }
     });
 
@@ -59,7 +66,7 @@ createConnection().then((connection) => {
         const user = api.findUser(socket);
 
         if (!user) {
-          console.warn(`user does not exist`);
+          console.warn(`User does not exist for socket ${socket.id}`);
           return;
         }
 
@@ -89,18 +96,12 @@ createConnection().then((connection) => {
   // JSON Express middleware
   app.use(bodyParser.json());
 
-  // Functional approach for sendMessage Express handler
-  app.post("/send-message", async (req, res, next) => {
-    // Request parameters
-    const { body, chat, user } = req.body;
+  // Simple, functional HTTP handler
+  app.post("/send-message", async (req, res, next) =>
+    api.sendMessage(connection, req.body).then(res.json.bind(res)).catch(next)
+  );
 
-    await api
-      .sendMessage(connection, { body, chat, user })
-      .then((message) => res.json(message))
-      .catch(next);
-  });
-
-  // Try/catch approach for getMessages Express handler
+  // Try/catch style with Async/Await
   app.post("/get-messages", async (req, res, next) => {
     try {
       // Request parameters
@@ -119,5 +120,6 @@ createConnection().then((connection) => {
     }
   });
 
+  // Start the API
   server.listen(PORT, () => console.log(`API listening on port ${PORT}`));
 });
