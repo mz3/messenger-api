@@ -150,12 +150,14 @@ To login to the database UI, enter the credentials.
 - Username: `messenger@localhost`
 - Password: `messenger`
 
-After logging in, add the messenger database connection parameters.
+After logging in, find "Browser" > "Servers" > "Add New Server". Enter the settings.
 
-- Connection type: PostgreSQL
-- Database name: `messenger`
-- Username: `messenger`
-- Password: `messenger`
+- General > Name: `Messenger`
+- Connection > Host: `postgres`
+- Connection > Port: `5432`
+- Connection > Username: `messenger`
+- Connection > Password: `messenger`
+- Connection > Save password?: `true`
 
 Connect to the database CLI.
 
