@@ -150,10 +150,32 @@ After logging in, add the messenger database connection parameters.
 - Username: `messenger`
 - Password: `messenger`
 
-To connect to psql, run:
+Connect to the database CLI.
 
 ```bash
 yarn psql
+```
+
+Enter PostgreSQL commands and queries.
+
+```SQL
+-- List tables
+\dt
+
+-- Describe message table
+\d message
+
+-- List messages (hit `q` to close output)
+select * from message;
+
+-- Delete a conversation (prints number of messages dropped)
+delete from message where message.chat = 1;
+
+-- Get a user's sent messages
+select * from message where message.user = 1;
+
+-- Disconnect from database
+\q
 ```
 
 A query logger can be enabled in `ormconfig.json`.
