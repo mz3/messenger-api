@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "rootDir": "./src",
     "module": "commonjs",
     "target": "es2017",
@@ -16,7 +17,7 @@
     "noUnusedParameters": false,
     "resolveJsonModule": true,
     "noImplicitAny": false,
-    "skipLibCheck": true
+    "skipLibCheck": false
   },
   "exclude": [
     "node_modules"

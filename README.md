@@ -122,6 +122,16 @@ Send messages, make code changes, and watch as the API restarts, database tables
 - HTTP API (development mode): [http://localhost:3001](http://localhost:3001)
 - Database UI (pgAdmin): [http://localhost:3002](http://localhost:3002)
 
+### Debugger
+
+Click to the left of line numbers to set breakpoints.
+
+![Debugger breakpoints](screenshots/debugger-breakpoints.png)
+
+With a Typescript file open, Go to the Debugger tab and click the Run button.
+
+![Debugger scripts](screenshots/debugger-scripts.png)
+
 ### Database
 
 To login to the database UI, enter the credentials.
