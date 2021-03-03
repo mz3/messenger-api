@@ -185,7 +185,7 @@ select * from message where message.user = 1;
 \q
 ```
 
-Enable the SQL query logger can be enabled in `ormconfig.json`.
+Enable the SQL query logger in `ormconfig.json`.
 
 ```json
 {
