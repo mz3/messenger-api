@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
-// TypeORM Entities are classes used to manage rows in the database
 @Entity()
 export class Message {
   // .id

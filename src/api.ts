@@ -1,10 +1,17 @@
+// This point of abstraction creates modularity for architecture. Databases, service queues,
+// logging endpoints can be collected into services, running locally, or on AWS Lambda/RDS/S3/EC2
+// and other cloud infrastructure. When Combined with Docker, Terraform/Cloudformation, AWSCLI,
+// this allows for adaptable and flexible architecture that enables rapid deployment
+// of new features and simple/abstract management of resources.
+
+// Configuration
+export const DAYS_LIMIT = 30;
+export const MESSAGE_LIMIT = 100;
+
+// Dependencies
 import * as _ from "./util";
 import { Socket } from "socket.io";
 import { Connection } from "typeorm";
-
-// Configuration
-const DAYS_LIMIT = 30;
-const MESSAGE_LIMIT = 100;
 
 // Typescript is used to document the API, speed development and reduce bugs by
 // increasing the amount of debugging possible in the editor, standardizing schemas,
@@ -15,25 +22,31 @@ export interface GetMessagesOpts {
   sort?: -1 | 1;
 }
 
+// Since we don't have authorization/authentication, Socket will be the primary
+// key for User
 export interface User {
-  socket: Socket; // Primary key for users
+  socket: Socket;
 }
 
+// ChatId will be the primary key for Chat
 export type ChatId = number;
 
+// Chat models a conversation or room
 export interface Chat {
-  id: ChatId; // Primary key for chats
+  id: ChatId;
   users: User[];
 }
 
+// ChatMap models the stores of conversations
 export interface ChatMap {
   [key: string]: Chat;
 }
 
 // Types can also come from ORMs and other type libraries
+// TypeORM Entities are classes used to model rows in the database
 import { Message } from "./entities/Message";
 
-// Validation
+// Message validation
 export const validateMessage = ({ body, user, chat }: any): Message => {
   // Properties can be validated using utility functions
   if (!_.isInteger(user)) throw new Error("`user` must be an integer");
@@ -44,7 +57,7 @@ export const validateMessage = ({ body, user, chat }: any): Message => {
   return message;
 };
 
-// In-memory objects
+// In-memory stores
 export const chats: ChatMap = {};
 export const users: User[] = [];
 
@@ -148,9 +161,6 @@ export const sendMessage = async (
 
     // Send message to users in chat
     chat.users.forEach((user) => user.socket.emit("message", message));
-
-    // Return message object
-    return message;
 
     // Finished
     return message;

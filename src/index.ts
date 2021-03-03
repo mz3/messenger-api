@@ -4,26 +4,21 @@ const PORT = process.env.PORT || 3000;
 // Node.js
 import { createServer } from "http";
 
-// Custom utilities
+// Helper/Utility functions
 import * as _ from "./util";
 
-// Express.js is an HTTP framework used to build the API
+// Express.js is used to define the API
 import express from "express";
 import bodyParser from "body-parser";
 
 // Socket.io is a WebSocket framework used to receive chat messages in real-time
-// instead of polling the HTTP api
 import { Server, Socket } from "socket.io";
 
-// TypeORM is a database framework that simplifies querying the database, and
-// handles creating and migrating tables
+// TypeORM is an ORM that simplifies querying the database, and
+// handles table management
 import { createConnection } from "typeorm";
 
-// This point of abstraction creates modularity for architecture. Databases, service queues,
-// logging endpoints can be collected into services, running locally, or on AWS Lambda/RDS/S3/EC2
-// and other cloud infrastructure. When Combined with Docker, Terraform/Cloudformation, AWSCLI,
-// this allows for adaptable and flexible architecture that enables rapid deployment
-// of new features and simple/abstract management of resources.
+// Import API service functions
 import * as api from "./api";
 
 // Application logic
