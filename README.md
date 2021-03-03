@@ -145,12 +145,14 @@ Press F5 (Windows) or go to the Debugger tab and click the Run button.
 
 ### Managing the database
 
-To login to the database UI, enter the credentials.
+#### pgAdmin
+
+Open [http://localhost:3002](http://localhost:3002) in a browser and enter the credentials.
 
 - Username: `messenger@localhost`
 - Password: `messenger`
 
-After logging in, find "Browser" > "Servers" > "Add New Server". Enter the settings.
+Find "Browser" > "Servers" > "Add New Server". Enter the settings.
 
 - General > Name: `Messenger`
 - Connection > Host: `postgres`
@@ -159,15 +161,17 @@ After logging in, find "Browser" > "Servers" > "Add New Server". Enter the setti
 - Connection > Password: `messenger`
 - Connection > Save password?: `true`
 
-Monitor database connections and queries.
+Click Messenger > Dashboard to monitor connections and queries.
 
 ![pgAdmin](screenshots/pgadmin.png)
 
-Manage database tables and run queries.
+Browser tables and run queries.
 
 ![pgAdmin](screenshots/pgadmin2.png)
 
-Connect to the database CLI.
+#### psql
+
+Connect to the database.
 
 ```bash
 yarn psql
