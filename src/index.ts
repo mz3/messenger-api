@@ -45,17 +45,16 @@ createConnection().then((connection) => {
     }
 
     // Handle incoming messages
-    socket.on("message", (obj: any) => {
+    socket.on("message", async (message: any) => {
       try {
-        const message = api.validateMessage(obj);
-        api.sendMessage(connection, message);
+        await api.sendMessage(connection, message);
       } catch (err) {
         console.error(`Failed handling message`, err);
       }
     });
 
     // Add user to a chat on "subscribe" event
-    socket.on("subscribe", (chatId) => {
+    socket.on("subscribe", (chatId: number) => {
       try {
         const user = api.findUser(socket);
 
@@ -106,7 +105,7 @@ createConnection().then((connection) => {
   app.post("/get-messages", async (req, res, next) => {
     try {
       // Request parameters
-      const { chat, sort, user = -1 } = req.body;
+      const { chat, user, sort = -1 } = req.body;
 
       // Validate `user` is an integer, if the user specifies it
       if (user && !_.isInteger(user))

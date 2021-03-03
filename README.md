@@ -62,12 +62,12 @@ curl -H "Content-Type: application/json" \
   }' \
   http://localhost:3000/send-message
 
-# Get all messages
+# Get last 100 messages from all users
 curl -H "Content-Type: application/json" \
   -X POST \
   http://localhost:3000/get-messages
 
-# Get messages in chat 1
+# Get last 100 messages in chat 1
 curl -H "Content-Type: application/json" \
   -X POST \
   -d '{
@@ -75,11 +75,11 @@ curl -H "Content-Type: application/json" \
   }' \
   http://localhost:3000/get-messages
 
-# Get messages sent by user 1
+# Get last 100 messages sent by user 1
 curl -H "Content-Type: application/json" \
   -X POST \
   -d '{
-    "chat": 1
+    "user": 1
   }' \
   http://localhost:3000/get-messages
 ```
@@ -110,7 +110,7 @@ yarn node:watch
 # In a second terminal window, run the test suite
 yarn node:test
 
-# In a third terminal window, send a test message
+# In a third terminal window, send a test message. The development API is on port 3001
 curl -H "Content-Type: application/json" \
   -X POST \
   -d '{
@@ -118,7 +118,7 @@ curl -H "Content-Type: application/json" \
     "chat": 1,
     "user": 2
   }' \
-  http://localhost:3000/send-message
+  http://localhost:3001/send-message
 ```
 
 Send messages, make code changes, and watch as the API restarts, database tables rebuild, and test suite runs.

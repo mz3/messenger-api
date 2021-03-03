@@ -22,6 +22,7 @@ socket.on("connect", () => {
   // Create a socket handler to test received messages
   socket.on("message", async (message: Message) => {
     console.log("Running assertions");
+    socket.open();
 
     try {
       // Expect `chat` in the response to be the same in the test message
@@ -50,6 +51,7 @@ socket.on("connect", () => {
 
       // Success
       console.log("Tests are passing");
+      socket.close();
     } catch (err) {
       // Failure
       console.error(err);
@@ -58,10 +60,7 @@ socket.on("connect", () => {
 
   // Send message
   socket.emit("message", { body, chat, user });
-});
 
-// Close socket connection when process exits
-process.on("SIGINT", () => {
-  socket.close();
-  process.exit();
+  // Keep test process open
+  setInterval(() => {}, 1 << 30);
 });

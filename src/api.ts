@@ -114,7 +114,7 @@ export const disconnectUser = ({ socket: { id } }: User): void => {
 
 export const getMessages = async (
   connection: Connection,
-  { chat = null, sort = -1, user = null }: GetMessagesOpts
+  { chat, sort = -1, user }: GetMessagesOpts
 ) => {
   // Prepare database query based on request parameters and app configuration
   // select only messages sent in the last 30 days
@@ -122,7 +122,7 @@ export const getMessages = async (
   date.setDate(date.getDate() - DAYS_LIMIT);
 
   // TypeORM `take` maps to SQL LIMIT
-  const opts = { take: MESSAGE_LIMIT, order: { sent: sort}, where: {} };
+  const opts = { take: MESSAGE_LIMIT, order: { sent: sort }, where: {} };
   if (user) Object.assign(opts, { where: { user } });
   if (chat) Object.assign(opts, { where: { chat } });
 
