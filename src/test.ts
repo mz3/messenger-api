@@ -32,20 +32,19 @@ socket.on("connect", () => {
       // Expect `body` to be the content of our test message
       assert.strictEqual(message.body, body);
 
-      // Check that the message was sent
-      assert.ok(message.sent);
-
-      // Retrieve messages from API
+      // Retrieve messages
       const messages = await getMessages({ chat, sort: -1 });
 
-      // Verify that the properties of the most recent message match the test variables
+      // Assert the API returned 100 or fewer messages
+      assert.ok(messages.length <= 100);
+
+      // Assert the most recent message contains the test variables
       assert.strictEqual(messages[0].body, body);
       assert.strictEqual(messages[0].chat, chat);
       assert.strictEqual(messages[0].user, user);
 
-      // Verify the message was sent
-      assert.ok(typeof messages[0].sent === "string");
-      assert.ok(messages[0].sent.length > 0);
+      // Assert it has a timestamp
+      assert.ok(messages[0].sent);
 
       // Success
       console.log("All tests passing");
