@@ -9,12 +9,12 @@ import { socket, getMessages, Message } from "./client";
 
 // Start tests when socket connects
 socket.on("connect", () => {
-  // Test variables
+  // Test values
   const body = "Hello from client!";
   const chat = 1;
   const user = 1;
 
-  // Join the message chat
+  // Join the chat
   socket.emit("subscribe", chat);
 
   // Create a socket handler to test received messages
@@ -32,10 +32,13 @@ socket.on("connect", () => {
       // Expect `body` to be the content of our test message
       assert.strictEqual(message.body, body);
 
-      // Retrieve messages
+      // Get messages
       const messages = await getMessages({ chat, sort: -1 });
 
-      // Assert the API returned 100 or fewer messages
+      // Assert the API returned 100 or fewer messages. This test isn't currently effective
+      // unless there have been more than 100 test messages sent through the API. Given more
+      // time, 101 messages should be inserted into the table before tests run, either in the
+      // test setup or a seed script
       assert.ok(messages.length <= 100);
 
       // Assert the most recent message contains the test variables

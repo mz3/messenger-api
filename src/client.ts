@@ -1,3 +1,6 @@
+// This is the Chat API library that would be used in a React application,
+// Command Line Interface (CLI), and other HTTP clients
+
 // Socket.io
 import { io } from "socket.io-client";
 

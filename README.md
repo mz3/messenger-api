@@ -8,6 +8,13 @@ A messenger API that allows users to send and receive chat messages
 - Get up to 100 messages for a given recipient
 - Get up to 100 messages for a given sender
 
+## Limitations
+
+- Clients must use server timezone
+- No authentication, authorization, or registration
+- Messages can be spoofed
+- Messages are not private
+
 ## Dependencies
 
 - Docker
@@ -185,14 +192,6 @@ A query logger can be enabled in `ormconfig.json`.
   "logging": true
 }
 ```
-
-## Bugs and limitations
-
-- Clients must use server timezone
-- No authentication or sessions
-- Messages can be spoofed
-- Messages are not private
-- Users are not persisted across restarts
 
 ## Notes
 
