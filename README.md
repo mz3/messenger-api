@@ -12,7 +12,7 @@ A Chat API that allows users to send and receive text messages
 
 - No authentication/authorization/registration
 - Messages can be spoofed
-- Messages are not private
+- Chats are not private
 
 ## Dependencies
 
