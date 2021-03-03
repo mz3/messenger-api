@@ -121,9 +121,11 @@ Send messages, make code changes, and watch as the API restarts, database tables
 
 - HTTP API (production mode): [http://localhost:3000](http://localhost:3000)
 - HTTP API (development mode): [http://localhost:3001](http://localhost:3001)
-- Database web UI (pgAdmin): [http://localhost:3002](http://localhost:3002)
+- Database UI (pgAdmin): [http://localhost:3002](http://localhost:3002)
 
-To login to the database web UI, enter the credentials.
+## Database UI
+
+To login to the database UI, enter the credentials.
 
 - Username: `messenger@localhost`
 - Password: `messenger`
@@ -135,27 +137,22 @@ After logging in, add the messenger database connection parameters.
 - Username: `messenger`
 - Password: `messenger`
 
-### Yarn scripts
+### Database CLI
 
-```json
-{
-  "start": "yarn docker:build && yarn docker:start",
-  "test": "yarn docker:test",
-  "docker:build": "docker-compose build",
-  "docker:start": "docker-compose up --build -d",
-  "docker:stop": "docker-compose down",
-  "docker:test": "docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts",
-  "node:start": "cross-env PORT=3001 ts-node src/index.ts",
-  "node:watch": "cross-env PORT=3001 ts-node-dev src/index.ts",
-  "node:test": "cross-env HTTP_ENDPOINT=http://localhost:3001 ts-node-dev src/test.ts"
-}
+To connect to psql, run:
+
+```bash
+yarn psql
 ```
 
 ## Notes
 
-Debug Docker image:
+### Yarn commands
+
+See `"scripts"` property in `package.json` for full command reference.
+
+### Debugging Docker containers
 
 ```bash
-yarn build:docker
 docker run -it messenger-api_messenger-api sh
 ```
