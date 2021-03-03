@@ -94,7 +94,7 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
-![CUrl message](screenshots/curl.png)
+![CUrl response](screenshots/curl.png)
 
 ## Local development environment
 
@@ -161,11 +161,11 @@ After logging in, find "Browser" > "Servers" > "Add New Server". Enter the setti
 
 Monitor database connections and queries.
 
-![Docker logs](screenshots/pgadmin.png)
+![pgAdmin](screenshots/pgadmin.png)
 
 Manage database tables and run queries.
 
-![Docker logs](screenshots/pgadmin2.png)
+![pgAdmin](screenshots/pgadmin2.png)
 
 Connect to the database CLI.
 
