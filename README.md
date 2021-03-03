@@ -7,13 +7,13 @@ A messenger API that allows users to send and receive chat messages
 - Clients must use server timezone
 - No chat privacy
 
-### Dependencies
+## Dependencies
 
 - Docker
 - Docker-compose
 - CUrl
 
-### Getting started
+## Getting started
 
 Clone the repository.
 
@@ -25,7 +25,7 @@ Stop any PostgreSQL server running on port 5432. Start the containers with `dock
 
 ```bash
 cd messenger-api
-docker-compose up
+docker-compose up -d
 ```
 
 Send some test commands with `curl`.
@@ -63,25 +63,59 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
-Run the tests with `docker`.
+## Integration tests
 
 ```bash
+# Using docker (requires Docker + Docker-compose)
 docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
+
+# Using Yarn script (requires Node.js + Yarn)
+docker test
 ```
 
-## Development
+## Developing
 
 VS Code is recommended for Typescript Intellisense.
 
-- Docker image
+### Local environment
+
+- Docker
 - Integration tests
 - Typescript
 
-### Additional dependencies
+### Development dependencies
 
 - Node.js
 - Yarn
 - Web browser
+
+### Installation
+
+```bash
+# Install NPM modules
+yarn
+
+# Start the docker containers
+yarn start
+
+# Start the Node.js API script. The script will remain open as the API listens on http://localhost:3001
+yarn node:watch
+
+# In a second terminal window, run the test suite
+yarn node:test
+
+# In a third terminal window, send a test message
+curl -H "Content-Type: application/json" \
+  -X POST \
+  -d '{
+    "body": "Hello, chat!",
+    "chat": 1,
+    "user": 2
+  }' \
+  http://localhost:3000/send-message
+```
+
+Send messages, make code changes, and watch as the API restarts, database tables rebuild, and test suite runs.
 
 ## Endpoints
 
