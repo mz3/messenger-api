@@ -137,11 +137,11 @@ Make changes, save the Typescript file, and the API restarts, database tables re
 
 Click to the left of line numbers to set breakpoints.
 
-![Debugger breakpoints](screenshots/breakpoints.png)
+![Breakpoints](screenshots/breakpoints.png)
 
-Press F5 (Windows) or go to the Debugger tab and click the Run button.
+Press F5 (Windows) or go to the Debugger tab and click the Run button. Step through code and inspect local variables using the built-in VS Code debugger.
 
-![Debugger scripts](screenshots/debugger.png)
+![Debugger](screenshots/debugger.png)
 
 ## Managing the database
 
