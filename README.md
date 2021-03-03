@@ -10,7 +10,7 @@ A Chat API that allows users to send and receive text messages
 
 ## Limitations
 
-- No authentication, authorization, or registration
+- No authentication/authorization/registration
 - Messages can be spoofed
 - Messages are not private
 
