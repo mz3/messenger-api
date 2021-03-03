@@ -61,6 +61,7 @@ socket.on("connect", () => {
   // Send message
   socket.emit("message", { body, chat, user });
 
-  // Keep test process open
+  // Keep test process running
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Left_shift
   setInterval(() => {}, 1 << 30);
 });
