@@ -2,16 +2,27 @@
 
 A messenger API that allows users to send and receive chat messages
 
+## Features
+
+- Send a text message to one or more recipients
+- Get up to 100 messages for a given recipient
+- Get up to 100 messages for a given sender
+
 ## Limitations
 
 - Clients must use server timezone
-- No chat privacy
+- No authentication or sessions
+- Messages can be spoofed
+- Messages are not private
 
 ## Dependencies
 
 - Docker
 - Docker-compose
-- CUrl
+- CUrl (optional)
+- Node.js (optional)
+- Web browser (optional)
+- Yarn (optional)
 
 ## Getting started
 
@@ -26,6 +37,16 @@ Stop any PostgreSQL server running on port 5432. Start the containers with `dock
 ```bash
 cd messenger-api
 docker-compose up -d
+```
+
+Run the test suite.
+
+```bash
+# Using Docker
+docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
+
+# Using Yarn script (requires Node.js + Yarn)
+docker test
 ```
 
 Send some test commands with `curl`.
@@ -63,31 +84,16 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
-## Integration tests
-
-```bash
-# Using docker (requires Docker + Docker-compose)
-docker exec -it messenger-api_api_1 node node_modules/.bin/ts-node src/test.ts
-
-# Using Yarn script (requires Node.js + Yarn)
-docker test
-```
-
 ## Developing
 
-VS Code is recommended for Typescript Intellisense.
+For local development, install the optional dependencies.
 
-### Local environment
+### Environment
 
 - Docker
-- Integration tests
+- Testing
 - Typescript
-
-### Development dependencies
-
-- Node.js
-- Yarn
-- Web browser
+- VS Code
 
 ### Installation
 
@@ -117,13 +123,13 @@ curl -H "Content-Type: application/json" \
 
 Send messages, make code changes, and watch as the API restarts, database tables rebuild, and test suite runs.
 
-## Endpoints
+### Endpoints
 
 - HTTP API (production mode): [http://localhost:3000](http://localhost:3000)
 - HTTP API (development mode): [http://localhost:3001](http://localhost:3001)
 - Database UI (pgAdmin): [http://localhost:3002](http://localhost:3002)
 
-## Database UI
+### Database
 
 To login to the database UI, enter the credentials.
 
@@ -137,8 +143,6 @@ After logging in, add the messenger database connection parameters.
 - Username: `messenger`
 - Password: `messenger`
 
-### Database CLI
-
 To connect to psql, run:
 
 ```bash
@@ -147,12 +151,10 @@ yarn psql
 
 ## Notes
 
-### Yarn commands
+- See `"scripts"` property in `package.json` for full Yarn script reference.
 
-See `"scripts"` property in `package.json` for full command reference.
-
-### Debugging Docker containers
+To get a shell inside the Docker container, run:
 
 ```bash
-docker run -it messenger-api_messenger-api sh
+docker exec -it messenger-api_messenger-api sh
 ```
