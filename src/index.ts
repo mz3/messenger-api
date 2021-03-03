@@ -30,7 +30,7 @@ createConnection().then((connection) => {
 
   // Create a status/health endpoint
   app.get("/status", (req, res) => {
-    const status = { code: 200, status: "healthy" }
+    const status = { code: 200, status: "healthy" };
     // We could check statuses of other APIs and services here and customize the status result
     res.status(status.code).json(status);
   });
@@ -94,7 +94,6 @@ createConnection().then((connection) => {
     // Request parameters
     const { body, chat, user } = req.body;
 
-    // Send message using API function
     await api
       .sendMessage(connection, { body, chat, user })
       .then((message) => res.json(message))
