@@ -174,7 +174,7 @@ Click Messenger > Dashboard to monitor connections and queries.
 
 ![pgAdmin](screenshots/pgadmin.png)
 
-Browser tables and run queries.
+Browser table and run queries.
 
 ![pgAdmin](screenshots/pgadmin2.png)
 
