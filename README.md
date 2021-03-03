@@ -137,7 +137,7 @@ Make changes, save the Typescript file, and the API restarts, database tables re
 
 Click to the left of line numbers to set breakpoints.
 
-![Debugger](screenshots/debugger.png)
+![Debugger](screenshots/breakpoints.png)
 
 Press F5 (Windows) or go to the Debugger tab and click the Run button.
 
