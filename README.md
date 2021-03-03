@@ -101,7 +101,7 @@ curl -H "Content-Type: application/json" \
   http://localhost:3000/get-messages
 ```
 
-The Chat API returns responses as JSON.
+The Chat API sends responses as JSON.
 
 ![CUrl](screenshots/curl.png)
 
