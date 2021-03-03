@@ -143,9 +143,9 @@ Press F5 (Windows) or go to the Debugger tab and click the Run button.
 
 ![Debugger scripts](screenshots/debugger.png)
 
-### Managing the database
+## Managing the database
 
-#### pgAdmin
+### pgAdmin
 
 Open [http://localhost:3002](http://localhost:3002) in a browser and enter the credentials.
 
@@ -169,7 +169,7 @@ Browser tables and run queries.
 
 ![pgAdmin](screenshots/pgadmin2.png)
 
-#### psql
+### psql
 
 Connect to the database.
 
