@@ -1,6 +1,6 @@
 # Messenger API
 
-A messenger API that allows users to send and receive chat messages
+A Chat API that allows users to send and receive chat messages
 
 ## Features
 
