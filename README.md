@@ -218,7 +218,7 @@ Enable the SQL query logger in `ormconfig.json`.
 
 ## Notes
 
-- See `scripts" property in `package.json` for full Yarn script reference.
+- See `scripts` property in `package.json` for full Yarn script reference.
 - To get a shell inside the Docker container, run:
 
 ```bash
